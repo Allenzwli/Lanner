@@ -16,7 +16,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         mLanner= (Lanner) findViewById(R.id.lanner);
+        
         lannerBeans=new ArrayList<LannerBean>();
+        
         LannerBean bean=new LannerBean();
         bean.setImageUrl("http://......");
         bean.setTitle("测试0");
@@ -28,6 +30,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void click(View v, LannerBean lb) {
                 Toast.makeText(MainActivity.this,lb.getTitle(),Toast.LENGTH_SHORT).show();
+                //可通过扩充LannerBean类成员,实现自定义点击事件。
             }
         });
     }
@@ -52,8 +55,8 @@ public class MainActivity extends AppCompatActivity {
         android:id="@+id/lanner"
         android:layout_width="match_parent"
         android:layout_height="200dp"
-        app:delayTime="3000"
-        app:scrollerDuration="1000"/>
+        app:delayTime="3000"<!--一张图片持续的显示时间-->
+        app:scrollerDuration="1000"/><!--图片间切换的滚动时长-->
 </RelativeLayout>
 
 ```
