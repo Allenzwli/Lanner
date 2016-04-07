@@ -15,5 +15,5 @@
         android:layout_width="match_parent"
         android:layout_height="200dp"
         app:delayTime="3000"
-        app:scrollerDuration="1000"/>
+        app:scrollerDuration="800"/>
 </RelativeLayout>

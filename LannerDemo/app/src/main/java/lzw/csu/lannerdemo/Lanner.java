@@ -6,7 +6,9 @@ import android.os.Handler;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
@@ -73,6 +75,18 @@ public class Lanner extends FrameLayout implements View.OnClickListener{
         ta.recycle();
     }
 
+    @Override
+    public boolean onInterceptTouchEvent(MotionEvent event) {
+        switch (event.getAction()){
+            case MotionEvent.ACTION_DOWN:
+                isAutoPlay=false;
+                break;
+            case MotionEvent.ACTION_UP:
+                isAutoPlay=true;
+                break;
+        }
+        return false;
+    }
 
     public void setLannerBeanList(List<LannerBean> list){
         mLannerBeanList=list;
@@ -125,13 +139,7 @@ public class Lanner extends FrameLayout implements View.OnClickListener{
             itemView.setOnClickListener(this);
             mViewList.add(itemView);
         }
-        for (int i = 0; i < mDotImageViewList.size(); i++) {
-            if (i==0) {
-                mDotImageViewList.get(i).setImageResource(R.drawable.dot_focus);
-            } else {
-                mDotImageViewList.get(i).setImageResource(R.drawable.dot_blur);
-            }
-        }
+        updateImageDots(0);
         mViewPager.setAdapter(new LannerPagerAdapter());
         mViewPager.setFocusable(true);
         mViewPager.setCurrentItem(1);
@@ -170,6 +178,16 @@ public class Lanner extends FrameLayout implements View.OnClickListener{
         }
     }
 
+    private void updateImageDots(int currentDotsPosition){
+        for (int i = 0; i < mDotImageViewList.size(); i++) {
+            if (i==currentDotsPosition) {
+                mDotImageViewList.get(i).setImageResource(R.drawable.dot_focus);
+            } else {
+                mDotImageViewList.get(i).setImageResource(R.drawable.dot_blur);
+            }
+        }
+    }
+
     class LannerOnPageChangeListener implements ViewPager.OnPageChangeListener{
 
         @Override
@@ -179,13 +197,13 @@ public class Lanner extends FrameLayout implements View.OnClickListener{
 
         @Override
         public void onPageSelected(int position) {
-            for (int i = 0; i < mDotImageViewList.size(); i++) {
-                if (i+1== position) {
-                    mDotImageViewList.get(i).setImageResource(R.drawable.dot_focus);
-                } else {
-                    mDotImageViewList.get(i).setImageResource(R.drawable.dot_blur);
-                }
-            }
+            int len=mLannerBeanList.size();
+            if(position>0&&position<=len)
+                updateImageDots(position-1);
+            else if(position==len+1)
+                updateImageDots(0);
+            else if(position==0)
+                updateImageDots(len-1);
         }
 
         @Override
