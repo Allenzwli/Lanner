@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    
+    <declare-styleable name="Lanner">
+        <attr name="delayTime" format="integer"></attr>
+        <attr name="scrollerDuration" format="integer"></attr>
+        <attr name="dotsSelectedIcon" format="reference"></attr>
+        <attr name="dotsUnSelectedIcon" format="reference"></attr>
+    </declare-styleable>
+</resources>

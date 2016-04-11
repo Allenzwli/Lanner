@@ -6,7 +6,6 @@ import android.os.Handler;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -35,6 +34,8 @@ public class Lanner extends FrameLayout implements View.OnClickListener{
     private int mCurrentItem;
     private int mDelayTime;
     private int mScrollerDuration;
+    private int mDotsSelectedIcon;
+    private int mDotsUnSelectedIcon;
     private LinearLayout mDotLinearLayout;
     private List<ImageView> mDotImageViewList;
     private Handler handler = new Handler();
@@ -72,6 +73,8 @@ public class Lanner extends FrameLayout implements View.OnClickListener{
         TypedArray ta=context.obtainStyledAttributes(attrs,R.styleable.Lanner);
         mScrollerDuration=ta.getInteger(R.styleable.Lanner_scrollerDuration,600);
         mDelayTime=ta.getInteger(R.styleable.Lanner_delayTime,5000);
+        mDotsSelectedIcon=ta.getResourceId(R.styleable.Lanner_dotsSelectedIcon, R.drawable.dot_focus);
+        mDotsUnSelectedIcon=ta.getResourceId(R.styleable.Lanner_dotsUnSelectedIcon,R.drawable.dot_blur);
         ta.recycle();
     }
 
@@ -123,7 +126,7 @@ public class Lanner extends FrameLayout implements View.OnClickListener{
         }
         for(int i=0;i<=len+1;i++){
             View itemView=LayoutInflater.from(mContext).inflate(
-                    R.layout.view_kanner_item, null);
+                    R.layout.view_lanner_item, null);
             ImageView titleImageView = (ImageView)itemView.findViewById(R.id.titleImageView);
             TextView titleTextView = (TextView)itemView.findViewById(R.id.titleTextView);
             if (i == 0) {
@@ -181,9 +184,9 @@ public class Lanner extends FrameLayout implements View.OnClickListener{
     private void updateImageDots(int currentDotsPosition){
         for (int i = 0; i < mDotImageViewList.size(); i++) {
             if (i==currentDotsPosition) {
-                mDotImageViewList.get(i).setImageResource(R.drawable.dot_focus);
+                mDotImageViewList.get(i).setImageResource(mDotsSelectedIcon);
             } else {
-                mDotImageViewList.get(i).setImageResource(R.drawable.dot_blur);
+                mDotImageViewList.get(i).setImageResource(mDotsUnSelectedIcon);
             }
         }
     }

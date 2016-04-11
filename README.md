@@ -55,8 +55,10 @@ public class MainActivity extends AppCompatActivity {
         android:id="@+id/lanner"
         android:layout_width="match_parent"
         android:layout_height="200dp"
-        app:delayTime="3000"<!--一张图片持续的显示时间-->
-        app:scrollerDuration="1000"/><!--图片间切换的滚动时长-->
+        app:dotsSelectedIcon="@drawable/dot_focus"<!-- 选中时的dots图标 -->
+        app:dotsUnSelectedIcon="@drawable/dot_blur"<!-- 未选中时dots图标 -->
+        app:delayTime="3000"<!-- 单张图片显示时间 -->
+        app:scrollerDuration="800"/><!-- scroller滚动时间 -->
 </RelativeLayout>
 
 ```
